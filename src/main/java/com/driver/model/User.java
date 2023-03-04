@@ -14,7 +14,7 @@ public class User {
     private String maskedIp ;
     private boolean connected;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private Country originalCountry;
+    private Country country;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Connection> connectionList;
    @ManyToMany
@@ -72,12 +72,12 @@ public class User {
         this.connected = connected;
     }
 
-    public Country getOriginalCountry() {
-        return originalCountry;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setOriginalCountry(Country originalCountry) {
-      this.originalCountry=originalCountry;
+    public void setCountry(Country originalCountry) {
+      this.country=country;
     }
 
     public List<Connection> getConnectionList() {
