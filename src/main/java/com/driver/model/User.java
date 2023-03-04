@@ -72,11 +72,11 @@ public class User {
         this.connected = connected;
     }
 
-    public Country getCountry() {
+    public Country getOriginalCountry() {
         return originalCountry;
     }
 
-    public void setCountry(Country originalCountry) {
+    public void setOriginalCountry(Country originalCountry) {
       this.originalCountry=originalCountry;
     }
 
