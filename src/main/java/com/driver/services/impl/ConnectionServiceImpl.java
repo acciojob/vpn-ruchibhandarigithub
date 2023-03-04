@@ -27,7 +27,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         if(user.getMaskedIp()!=null){
             throw new Exception("Already connected");
         }
-        else if(countryName.equalsIgnoreCase(user.getCountry().getCountryName().toString())){
+        else if(countryName.equalsIgnoreCase(user.getOriginalCountry().toString())){
             return user;
         }
         else {
@@ -79,7 +79,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User disconnect(int userId) throws Exception {
         User user = userRepository2.findById(userId).get();
-        if(user.isConnected()==false){
+        if(user.getConnected()==false){
             throw new Exception("Already disconnected");
         }
         user.setMaskedIp(null);
@@ -96,7 +96,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             String str = user1.getMaskedIp();
             String cc = str.substring(0,3); //chopping country code = cc
 
-            if(cc.equals(user.getCountry().getCode()))
+            if(cc.equals(user.getOriginalCountry().getCode()))
                 return user;
             else {
                 String countryName = "";
@@ -113,7 +113,7 @@ public class ConnectionServiceImpl implements ConnectionService {
                     countryName = CountryName.AUS.toString();
 
                 User user2 = connect(senderId,countryName);
-                if (!user2.isConnected()){
+                if (!user2.getConnected()){
                     throw new Exception("Cannot establish communication");
 
                 }
@@ -122,12 +122,12 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         }
         else{
-            if(user1.getCountry().equals(user.getCountry())){
+            if(user1.getOriginalCountry().equals(user.getOriginalCountry())){
                 return user;
             }
-            String countryName = user1.getCountry().getCountryName().toString();
+            String countryName = user1.getOriginalCountry().getCountryName().toString();
             User user2 =  connect(senderId,countryName);
-            if (!user2.isConnected()){
+            if (!user2.getConnected()){
                 throw new Exception("Cannot establish communication");
             }
             else return user2;
