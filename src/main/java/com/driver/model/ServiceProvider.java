@@ -15,7 +15,7 @@ public class ServiceProvider {
     private List<Country> countryList;
     @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
     private List<Connection> connectionList;
-     @ManyToMany
+     @ManyToMany(mappedBy = "serviceProviderList",cascade = CascadeType.ALL)
      private List<User> users;
 
     public ServiceProvider() {

@@ -9,13 +9,12 @@ public class Country
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
    @Enumerated(value= EnumType.STRING)
-   CountryName countryName;
-   String code;
+   private CountryName countryName;
+   private String code;
    @ManyToOne
    @JoinColumn
    private ServiceProvider serviceProvider;
-   @ManyToOne
-   @JoinColumn
+  @OneToOne
    private User user;
 
    public Country() {
