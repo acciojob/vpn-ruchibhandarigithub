@@ -10,7 +10,7 @@ public class User {
     private int id;
     private String userName;
     private String password;
-    private String originalIp
+    private String originalIp;
     private String maskedIp ;
     private boolean connected;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
