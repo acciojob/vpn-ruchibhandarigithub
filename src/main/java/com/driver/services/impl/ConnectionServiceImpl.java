@@ -59,6 +59,9 @@ public class ConnectionServiceImpl implements ConnectionService {
         connection.setServiceProvider(serviceProvider);
         connection.setUser(user);
         user.getConnections().add(connection);
+        Country country = new Country();
+        country.setCountryName(countryName1);
+        user.setCountry(country);
         serviceProvider.getConnections().add(connection);
         connectionRepository2.save(connection);
         serviceProviderRepository2.save(serviceProvider);
@@ -70,12 +73,25 @@ public class ConnectionServiceImpl implements ConnectionService {
     }
     @Override
     public User disconnect(int userId) throws Exception {
-       User user = new User();
+       User user = userRepository2.findById(userId).get();
+       if(user.isConnected()==false){
+           throw new Exception("Already disconnected");
+       }
+       user.setConnected(false);
+       user.setMaskedIp(null);
+       userRepository2.save(user);
+
+
        return user;
     }
     @Override
     public User communicate(int senderId, int receiverId) throws Exception {
-      User user = new User();
-      return user;
+      User sender = userRepository2.findById(senderId).get();
+//      User receiver = userRepository2.findById(receiverId).get();
+//      if(sender.getCountry().equals(sender.getCountry())==false){
+//
+//      }
+
+      return sender;
     }
 }
