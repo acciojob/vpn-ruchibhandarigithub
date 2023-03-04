@@ -29,14 +29,14 @@ public class ConnectionServiceImpl implements ConnectionService {
         if(user.getCountry().getCountryName().equals(countryName)){
            return user;
         }
-        List<ServiceProvider> serviceProviders = user.getServiceProviders();
+        List<ServiceProvider> serviceProviders = user.getServiceProviderList();
         if(serviceProviders.size()==0){
             throw new Exception("Unable to connect");
         }
         // finding serviceProvide
         boolean check = false;
         for(ServiceProvider serviceProvider : serviceProviders){
-            if(serviceProvider.getCountries().contains(countryName)){
+            if(serviceProvider.getCountryList().contains(countryName)){
                 check = true;
             }
         }
@@ -46,7 +46,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         ServiceProvider serviceProvider = null;
 
         for(ServiceProvider serviceProvider1 : serviceProviders){
-            if(serviceProvider.getCountries().contains(countryName) ){
+            if(serviceProvider.getCountryList().contains(countryName) ){
                 if((serviceProvider == null) || (serviceProvider1.getId() > serviceProvider1.getId())){
                  serviceProvider= serviceProvider1;
                 }
@@ -58,11 +58,11 @@ public class ConnectionServiceImpl implements ConnectionService {
         Connection connection = new Connection();
         connection.setServiceProvider(serviceProvider);
         connection.setUser(user);
-        user.getConnections().add(connection);
+        user.getConnectionList().add(connection);
         Country country = new Country();
         country.setCountryName(countryName1);
         user.setCountry(country);
-        serviceProvider.getConnections().add(connection);
+        serviceProvider.getConnectionList().add(connection);
         connectionRepository2.save(connection);
         serviceProviderRepository2.save(serviceProvider);
         userRepository2.save(user);
